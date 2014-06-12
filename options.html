@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>FastForward</title></head>
+<link rel="stylesheet" href="options.css" type="text/css" media="all">
+</head>
+
+<body>
+  <h1><img class="logo" src="fastforward.png"/>Options</h1>
+  <fieldset id="wrap">
+    <legend title="Tokens that indicate a link is a 'next page' link">Next words</legend>
+    <div id="nextwords"/>
+  </fieldset>
+  <div id="buttons">
+    <button id="addword">Add Word</button><p/>
+  </div>
+  <fieldset id="wrap">
+    <legend title="Urls not to follow even if they contain a 'next page' token">Excluded Urls</legend>
+    <div id="excludedUrls"/>
+  </fieldset>
+  <div id="buttons">
+    <button id="addExcludedUrl">Add ExcludedUrl</button><p/>
+  </div>
+  <div id="buttons">
+    <input id="debug" type="checkbox"> Debug Mode<p/>
+    <button id="save">Save Settings</button>
+    <button id="reset">Reset to defaults</button>
+  </div>
+</body>
+
+<script src="nextwords.js"></script>
+<script src="common.js"></script>
+<script src="options.js"></script>
+</html>

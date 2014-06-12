@@ -1,0 +1,33 @@
+body {
+}
+
+h1 {
+  font-size: 26pt;
+  margin-left: 100px;
+  margin-top: 10px;
+}
+
+#wrap {
+  font-size: 14pt;
+  border-color: black;
+  margin-left: 100px;
+  padding-left: 50px;
+  width: 60%;
+}
+
+#wrap input {
+  font-size: 14pt;
+  width: 100%;
+}
+
+#buttons {
+  margin-left: 150px;
+}
+
+#buttons button {
+  font-size: 14pt;
+}
+
+#buttons input {
+  margin-top: 20px;
+}
