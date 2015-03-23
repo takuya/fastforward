@@ -83,22 +83,11 @@
     var scroll = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     var clientHeight = Math.min(document.documentElement.clientHeight, document.body.clientHeight);
 
-
-    debugLog("pageLocations:");
-    debugLog("  height: " + document.documentElement.scrollHeight + " scroll: " + document.documentElement.scrollTop + " clientHeight: " + document.documentElement.clientHeight);
-    debugLog("  height: " + document.body.scrollHeight + " scroll: " + document.body.scrollTop + " clientHeight: " + document.body.clientHeight);
-    debugLog("  result: " + (height <= (scroll + clientHeight)));
-
-    // var a ={ 
-    //   "scroll": scroll,
-    //   "height": height,
-    //   "clientHeight": clientHeight
-    // }
-
-    // console.log(a)
-
    
-    var ret = (height - (scroll + clientHeight)) < 10 || Math.floor(document.documentElement.scrollHeight) < Math.floor(document.documentElement.clientHeight);
+    //return height <= (scroll + clientHeight) || document.documentElement.scrollHeight < document.documentElement.clientHeight;
+
+
+    ret = (height - (scroll + clientHeight)) < 10 //|| Math.floor(document.documentElement.scrollHeight) < Math.floor(document.documentElement.clientHeight);
     return ret;
   }
   
