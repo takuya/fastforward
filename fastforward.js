@@ -3,10 +3,12 @@
 
   var KEYS = {
     SPACE : 32,
-    SHIFT : 16
+    SHIFT : 16,
+    X:88,
+    Z:90
   };
 
-  var isDebugEnabled = "false";
+  var isDebugEnabled = true;
   var nextwords = [];
   var excludedUrls = [];
   
@@ -44,6 +46,11 @@
         if (isInput()) { return; }
         
         switch (e.keyCode) {
+          case KEYS.X:
+            if ( e.shiftKey ){
+              loadNext();
+            }
+            break;
           case KEYS.SPACE:
             if (!shiftKeyPress && isPageBottom()) {
               loadNext();
@@ -106,26 +113,43 @@
     if (hasNextWord(tags)) { return; }
     if (hasNextImg(tags)) { return; }
   }
-  
+  function findMatchTags(tags, words, condition) {
+    var tags_array;
+    tags_array = Array.from(tags);
+    tags_array = tags_array.filter( function(e){ return e.textContent.trim().length > 0  } )
+
+    words.forEach(function( word ){
+      tags_array.forEach( function(tag){
+        if ( condition( tag,word ) ) {
+          var url = tag.getAttribute("href");
+          if(!isExcludedUrl(url)) {
+            debugLog("Found: " + word + " Following: " + tag.textContent + ":" + url);
+            return document.location.href = url;
+          }
+        }
+      })//tags_array.forEach
+    })//words.forEach
+  }
+
   function hasRelNext(tags) {
     return hasCondition(tags, "rel=next", function(tag, word) { return tag.hasAttribute("rel") && tag.getAttribute("rel").toLowerCase() == "next" });
   }
   
   function hasNextWord(tags) {
+
+    // TODO:: xpath したほうが楽でしょ！
+
     // check for exact match
-    for (var i = 0; i < nextwords.length; i++) {
-      if (hasCondition(tags, nextwords[i], function(tag, word) { return tag.textContent.toLowerCase() === word.toLowerCase(); })) {
-        return true;
-      }
-    }
-    
+    findMatchTags(tags, nextwords, function( tag, word ){
+      return tag.textContent.trim().toLowerCase() == word.trim().toLowerCase()
+    })
     // check for any match
-    for (var i = 0; i < nextwords.length; i++) {
-      if (hasCondition(tags, nextwords[i], function(tag, word) { return tag.textContent.toLowerCase().indexOf(word.toLowerCase()) >= 0; })) {
-        return true;
-      }
-    }
-    
+    findMatchTags(tags, nextwords, function( tag, word ){
+      return tag.textContent.trim().toLowerCase().indexOf(word.trim().toLowerCase()) >= 0
+    })
+  }
+
+  function hasNextImg(tags) {
     for (var i = 0; i < nextwords.length; i++) {
       if (hasCondition(tags, nextwords[i], function(tag, word) { 
         var imgs = tag.getElementsByTagName('img');
